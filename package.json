@@ -2,9 +2,6 @@
   "name": "fantom-clientjs-utils",
   "description": "Fantom Ledger Hardware Wallet High Level API",
   "version": "1.0.4",
-  "files": [
-    "lib"
-  ],
   "repository": "github:Fantom-foundation/Fantom_LedgerJS",
   "homepage": "https://github.com/Fantom-foundation/Fantom_LedgerJS",
   "keywords": [
