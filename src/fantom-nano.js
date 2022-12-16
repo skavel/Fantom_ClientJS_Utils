@@ -7,10 +7,10 @@
  * @licese MIT
  */
 import {Assert, stripReturnCodeFromResponse, bip32PathToBuffer, BIP32_HARDENED, buffer2Hex} from "./utils";
-import {Transaction} from "ethereumjs-tx";
-import Common from "ethereumjs-common";
-import {encode} from "rlp";
-import {toBuffer, stripZeros} from "ethereumjs-util";
+import {Transaction} from "../node_modules/ethereumjs-tx";
+import Common from "../node_modules/ethereumjs-common";
+import {encode} from "../node_modules/rlp";
+import {toBuffer, stripZeros} from "../node_modules/ethereumjs-util";
 
 // FANTOM_CHAIN_ID represents the Fantom Opera main chain id.
 export const FANTOM_CHAIN_ID = 0xfa;
