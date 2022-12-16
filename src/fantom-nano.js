@@ -151,13 +151,15 @@ export default class FantomNano {
     // sigOptions holds chain tx signature building options
     sigOptions;
 
+    _chainId;
+
     /**
      * Construct new FantomNano API bridge
      *
      * @param {Transport} transport
      * @param {string} ledgerAppKey APDU proxy key of the Ledger application
      */
-    constructor(transport, ledgerAppKey = "FTM") {
+    constructor(transport, ledgerAppKey = "FTM", chainId = FANTOM_CHAIN_ID) {
         // keep the transport
         this.transport = transport;
 
@@ -182,6 +184,8 @@ export default class FantomNano {
         // reference send function locally and wrap it in a status code
         // conversion wrapper so exceptions have app-aware error messages
         this.send = wrapConvertError(this.transport.send);
+
+        this._chainId = chainId;
     }
 
     /**
@@ -320,7 +324,7 @@ export default class FantomNano {
                     {
                         name: 'custom-network',
                         networkId: 1,
-                        chainId: FANTOM_CHAIN_ID
+                        chainId: this._chainId
                     },
                     'petersburg'
                 )
@@ -496,7 +500,7 @@ export default class FantomNano {
         const txFinal = new Transaction(
             {
                 ...tx,
-                v: sig.v + ((FANTOM_CHAIN_ID * 2) + 8),
+                v: sig.v + ((this._chainId * 2) + 8),
                 r: sig.r,
                 s: sig.s
             },
@@ -505,7 +509,7 @@ export default class FantomNano {
 
         // return the signed tx structure with all the important details
         return {
-            v: sig.v + ((FANTOM_CHAIN_ID * 2) + 8),
+            v: sig.v + ((this._chainId * 2) + 8),
             r: sig.r,
             s: sig.s,
             tx: txFinal,
