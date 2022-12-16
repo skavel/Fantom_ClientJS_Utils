@@ -7,10 +7,10 @@
  * @licese MIT
  */
 import {Assert, stripReturnCodeFromResponse, bip32PathToBuffer, BIP32_HARDENED, buffer2Hex} from "./utils";
-import {Transaction} from "../node_modules/ethereumjs-tx";
-import Common from "../node_modules/ethereumjs-common";
-import {encode} from "../node_modules/rlp";
-import {toBuffer, stripZeros} from "../node_modules/ethereumjs-util";
+import {Transaction} from "ethereumjs-tx";
+import Common from "ethereumjs-common";
+import {encode} from "rlp";
+import {toBuffer, unpadBuffer} from "ethereumjs-util";
 
 // FANTOM_CHAIN_ID represents the Fantom Opera main chain id.
 export const FANTOM_CHAIN_ID = 0xfa;
@@ -346,8 +346,8 @@ export default class FantomNano {
         // to replay attacks.
         const items = txRaw.raw.slice(0, 6).concat([
             toBuffer(txRaw.getChainId()),
-            stripZeros(toBuffer(0)),
-            stripZeros(toBuffer(0)),
+            unpadBuffer(toBuffer(0)),
+            unpadBuffer(toBuffer(0)),
         ]);
 
         return encode(items);
